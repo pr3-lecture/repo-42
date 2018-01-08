@@ -2,8 +2,8 @@ CC = gcc
 COMPILER_OPTIONS = -Wall
 
 .PHONY: all clean
-all: encrypt decrypt
-clean: rm -f encrypt decrypt main.o crypto.o
+all: encrypt decrypt test
+clean: rm -f encrypt decrypt main.o crypto.o test
 
 main.o: main.c
 	$(CC) $(COMPILER_OPTIONS) -c $^
