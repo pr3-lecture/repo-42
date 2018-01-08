@@ -50,8 +50,7 @@ static const char* testEncrypt()
     memset(output, 0, strlen(output));
     key.chars = "MYKEY";
     int result = encrypt(key, "HALLO", output);
-
-    mu_assert("Encrypt HELLO with MYKEY failed", strcmp("EXGIV", output) == 0 && result == 0);
+    mu_assert("Encrypt HALLO with MYKEY failed", strcmp("EXGIV", output) == 0 && result == 0);
 
     return NULL;
 }
@@ -71,7 +70,7 @@ static const char* testKeyIllegalCharsEncrypt()
 {
     key.chars = "MyKEY";
 
-    mu_assert("Key is illegal on encrypt failed", encrypt(key, "WAFFEL", output) == E_KEY_ILLEGAL_CHAR);
+    mu_assert("Key is illegal -> encrypt failed", encrypt(key, "WAFFEL", output) == E_KEY_ILLEGAL_CHAR);
 
     return NULL;
 }

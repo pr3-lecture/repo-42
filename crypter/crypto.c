@@ -29,11 +29,13 @@ int cryptXOR (KEY key,const char* input, char* output){
   if(strlen(key.chars) == 0) {
       return E_KEY_TOO_SHORT;
     }
+
   if (hasIllegalChar(key.chars, KEY_CHARACTERS)){
       return E_KEY_ILLEGAL_CHAR;
     }
-  if (hasIllegalChar(input, MESSAGE_CHARACTERS)){
-    return E_MESSAGE_ILLEGAL_CHAR;
+
+  if(hasIllegalChar(input, MESSAGE_CHARACTERS)){
+      return E_MESSAGE_ILLEGAL_CHAR;
     }
 
   int i;
@@ -43,6 +45,9 @@ int cryptXOR (KEY key,const char* input, char* output){
     char keyChar = key.chars[i % (strlen(key.chars))] - 'A' +1;
     output[i] = ((inputChar ^ keyChar) + 'A' - 1);
    }
+   if(hasIllegalChar(output, CYPHER_CHARACTERS)){
+     return E_CYPHER_ILLEGAL_CHAR;
+   }
    return 0;
 }
 
@@ -51,5 +56,5 @@ int encrypt(KEY key, const char* input, char* output){
 }
 
 int decrypt(KEY key, const char* cypherText, char* output){
-  return cryptXOR(key, cypherText, output);
+    return cryptXOR(key, cypherText, output);
 }
