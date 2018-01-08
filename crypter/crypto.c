@@ -1,5 +1,6 @@
 #include "crypto.h"
 
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -36,8 +37,11 @@ int cryptXOR (KEY key,const char* input, char* output){
     }
 
   int i;
+
   for(i = 0; i < strlen(input); i++) {
-      output[i] = input[i] ^ key.chars[i % (sizeof(key)/sizeof(char))];
+    char inputChar = input[i] - 'A' + 1;
+    char keyChar = key.chars[i % (strlen(key.chars))] - 'A' +1;
+    output[i] = ((inputChar ^ keyChar) + 'A' - 1);
    }
    return 0;
 }
@@ -48,18 +52,4 @@ int encrypt(KEY key, const char* input, char* output){
 
 int decrypt(KEY key, const char* cypherText, char* output){
   return cryptXOR(key, cypherText, output);
-}
-
-int main (int argc, char *argv[]) {
-	char baseStr[] = "HELLOWORLD";
-  KEY.type = 1;
-  KEY.chars = "TPE";
-
-	char encrypted[strlen(baseStr)];
-	encrypt(KEY, baseStr, encrypted);
-	printf("Encrypted:%s\n", encrypted);
-
-	char decrypted[strlen(baseStr)];
-	encryptDecrypt(KEY,encrypted, decrypted);
-	printf("Decrypted:%s\n", decrypted);
 }
